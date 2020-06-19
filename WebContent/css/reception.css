@@ -1,0 +1,67 @@
+@charset "utf-8";
+
+.h1 {
+	color: blue;
+	font-size: 50px;
+}
+a:link{
+	text-decoration:none;
+    color:blue;
+    }
+.button {
+	width: 200px;
+	height: 50px;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.button2 {
+	width: 100px;
+	height: 18px;
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.h2 {
+	width: 140px;
+	height: 36px;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.message {
+	width: 140px;
+	height: 36px;
+	font-size: 20px;
+	font-weight: 700;
+	color: red;
+}
+
+.score {
+	color: red;
+	font-size: 30px;
+}
+.biaoti {
+	font-family: "黑体", "华文彩云";
+	font-size: 36px;
+	color: #00F;
+}
+.签名 {
+	font-family: "华文行楷";
+	font-size: 35px;
+	color: #F00;
+}
+body {
+	background-color: #9F9;
+}
+.导航 {
+	font-family: "宋体";
+	font-size: 18px;
+	font-style: oblique;
+	color: #60F;
+}
+.标题2 {
+	font-family: "华文新魏";
+	font-size: 24px;
+	color: #F00;
+}

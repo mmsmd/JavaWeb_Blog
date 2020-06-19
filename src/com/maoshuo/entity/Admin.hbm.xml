@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!--name指定持久化类的类名，table指定数据表的表名-->
+    <class name="com.maoshuo.entity.Admin" table="admin" select-before-update="true">
+	  <!--将User类中的id属性映射为数据表USER中的主键USER_ID-->
+       <id name="adminID"  >
+            <generator class="increment" />
+       </id>
+<property name="adminNumber" >
+</property>
+<property name="adminName" >
+</property>
+<!--映射User类的password属性-->
+<property name="adminPassword" >
+</property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 配置SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<!-- 配置Hibernate的属性 -->
+		<property name="hibernateProperties">
+			<props>
+				<!-- 配置数据库方言 -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<!--输出运行时生成的SQL语句 -->
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<!-- 指定HIbernate映射文件的路径 -->
+		<property name="mappingResources">
+			<list>
+				<value>com/maoshuo/entity/Student.hbm.xml</value>
+				<value>com/maoshuo/entity/Admin.hbm.xml</value>
+				<value>com/maoshuo/entity/News.hbm.xml</value>
+				<value>com/maoshuo/entity/Notice.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置dataSource -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- 配置数据库JDBC驱动 -->
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<!-- 配置数据库连接URL -->
+		<property name="url" value="jdbc:mysql://localhost:3306/maos?useUnicode=true&amp;characterEncoding=UTF-8"></property>
+		<!-- 配置数据库用户名 -->
+		<property name="username">
+			<value>root</value>
+		</property>
+		<!-- 配置数据库密码 -->
+		<property name="password">
+			<value>123</value>
+		</property>
+	</bean>
+
+
+
+	<!-- bean的配置 -->
+	<bean id="studentDAO" class="com.maoshuo.dao.StudentDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="studentService" class="com.maoshuo.service.StudentServiceImpl">
+		<property name="studentDAO" ref="studentDAO"></property>		<!--注入DAO组件 -->
+	</bean>
+
+	<!--创建loginAction 实例 -->
+	<bean id="studentAction" class="com.maoshuo.action.StudentAction" scope="prototype">
+		<property name="studentService" ref="studentService"></property><!--注入Service组件 -->
+	</bean>
+	
+	
+	<!-- bean的配置 -->
+	<bean id="adminDAO" class="com.maoshuo.dao.AdminDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="adminService" class="com.maoshuo.service.AdminServiceImpl">
+		<property name="adminDAO" ref="adminDAO"></property>		<!--注入DAO组件 -->
+	</bean>
+
+	<!--创建loginAction 实例 -->
+	<bean id="adminAction" class="com.maoshuo.action.AdminAction">
+		<property name="adminService" ref="adminService"></property>
+		<property name="studentService" ref="studentService"></property>
+	</bean>
+	
+	<!-- bean的配置 -->
+	<bean id="newsDAO" class="com.maoshuo.dao.NewsDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="newsService" class="com.maoshuo.service.NewsServiceImpl">
+		<property name="newsDAO" ref="newsDAO"></property>		<!--注入DAO组件 -->
+	</bean>
+
+	<bean id="newsAction" class="com.maoshuo.action.NewsAction">
+		<property name="newsService" ref="newsService"></property>
+	</bean> 
+	
+	<!-- bean的配置 -->
+	<bean id="noticeDAO" class="com.maoshuo.dao.NoticeDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="noticeService" class="com.maoshuo.service.NoticeServiceImpl">
+		<property name="noticeDAO" ref="noticeDAO"></property>		<!--注入DAO组件 -->
+	</bean>
+
+	<bean id="noticeAction" class="com.maoshuo.action.NoticeAction">
+		<property name="noticeService" ref="noticeService"></property>
+	</bean> 
+	
+	
+	
+	
+	
+	<bean id="showIndexAction" class="com.maoshuo.action.ShowIndexAction">
+		<property name="newsService" ref="newsService"></property>
+	<property name="noticeService" ref="noticeService"></property>
+	</bean>
+	<bean id="newsMoreAction" class="com.maoshuo.action.NewsMoreAction">
+		<property name="newsService" ref="newsService"></property>
+	</bean>  
+	<bean id="noticeMoreAction" class="com.maoshuo.action.NoticeMoreAction">
+		<property name="noticeService" ref="noticeService"></property>
+	</bean>
+</beans>
