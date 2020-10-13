@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<!--struts根标签 -->
+<struts>
+<!-- 	<constant name="struts.devMode" value="true" />		打开开发模式 -->
+	<constant name="struts.objectFactory" value="spring" />		<!--引入spring框架 -->
+	<!--定义包 -->
+	<package name="default" namespace="/" extends="struts-default">
+		<action name="student_*" class="studentAction"  method="{1}">			
+			<result >index.jsp</result>
+			<result name="login">login.jsp</result>		
+			<result name="input">{1}.jsp</result>
+			<result name="modifyPerson">modifyPerson.jsp</result>
+		</action>
+		
+		<action name="showIndex" class="showIndexAction">			
+			<result >index.jsp</result>
+		</action>
+		
+		<action name="newsMore" class="newsMoreAction">			
+			<result >index.jsp</result>
+			<result name="newsMore">newsMore.jsp</result>
+		</action>
+		
+		<action name="noticeMore" class="noticeMoreAction">			
+			<result >index.jsp</result>
+			<result name="noticeMore">noticeMore.jsp</result>
+		</action>
+		
+		 
+	</package>
+	
+	
+	<package name="admin" namespace="/admin" extends="struts-default">		
+		<interceptors>
+    	<interceptor name="interceptorAdmin" class="com.maoshuo.interceptor.InterceptorAdmin"/>    		
+    	   	
+    	<interceptor-stack name="myStack">
+          <interceptor-ref name="interceptorAdmin">            
+          <param name="excludeMethods">login</param>
+           </interceptor-ref>
+           <interceptor-ref name="defaultStack"></interceptor-ref>
+         </interceptor-stack>
+    	</interceptors>
+		<action name="admin_*" class="adminAction"  method="{1}">		
+			<interceptor-ref name="myStack"></interceptor-ref>	
+			<result >index.jsp</result>
+			<result name="login">login.jsp</result>		
+			<result name="input">{1}.jsp</result>
+			<result name="modifyPerson">modifyPerson.jsp</result>
+			<result name="student_gl">student_gl.jsp</result>
+			<result name="student_edit">student_edit.jsp</result>
+		</action>
+		<action name="admin_login" class="adminAction"  method="login">		 		
+			<result >index.jsp</result>
+			<result name="login">login.jsp</result>	
+		</action>
+		
+		<action name="news_*" class="newsAction"  method="{1}">		
+			<interceptor-ref name="myStack"></interceptor-ref>	
+			<result >index.jsp</result>
+			<result name="login">login.jsp</result>		
+			<result name="input">{1}.jsp</result>
+			<result name="modifyNews">modifyNews.jsp</result>
+			<result name="news_gl">news_gl.jsp</result>
+		</action>
+		
+		<action name="notice_*" class="noticeAction"  method="{1}">		
+			<interceptor-ref name="myStack"></interceptor-ref>	
+			<result >index.jsp</result>
+			<result name="login">login.jsp</result>		
+			<result name="input">{1}.jsp</result>
+			<result name="modifyNotice">modifyNotice.jsp</result>
+			<result name="notice_gl">notice_gl.jsp</result>
+			<result name="notice_edit">notice_edit.jsp</result>
+		</action>
+		
+		<action name="ImgUpload" class="com.maoshuo.action.ImgUploadAction"></action>
+		
+		
+		
+	</package>
+</struts> 
